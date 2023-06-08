@@ -1,0 +1,5 @@
+# Detect code in docs folder
+# Linguist is used to determine language statistics
+# https://github.com/github/linguist/blob/16c70aef8cd62ca071231a380c69050f5e83c900/lib/linguist/documentation.yml
+
+docs/** linguist-documentation=false
