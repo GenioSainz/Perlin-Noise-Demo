@@ -8,7 +8,7 @@ The demo shows how from an input point on the 2D grid 4 parameters are obtained 
 - The vectors defined by the entry point and the corners of each cell.
 
 By interpolating these parameters, the output of the algorithm is finally obtained.These two references explain this topic in detail. By [Raouf Touti](https://rtouti.github.io/graphics/perlin-noise-algorithm) and
-[Adrian Biagioli](https://adrianb.io/2014/08/09/perlinnoise.html)
+[Adrian Biagioli](https://adrianb.io/2014/08/09/perlinnoise.html).
 
 <br>
 
