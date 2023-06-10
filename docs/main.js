@@ -322,7 +322,6 @@ function draw(){
         ////////////////////////
         var xPixel = 0;
         var yPixel = 0;
-        var yXY    = Z
         plotRowsCols(idXX,XY,XY0,yPixel,Z);
         plotRowsCols(idYY,XY,XY0,xPixel,Z);
     };

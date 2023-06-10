@@ -14,3 +14,10 @@ By interpolating these parameters, the output of the algorithm is finally obtain
 
 <img src="docs/imgs/img2.png"  width="100%">
 
+<br>
+
+1D slices traces of the 2D noise by plotting the row/column YY/XX vectors defined by the input (x,y) coordinates.
+
+
+<img src="docs/imgs/img3.png"  width="100%">
+
