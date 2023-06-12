@@ -783,7 +783,7 @@ function sliderEvents(){
     document.querySelector("#qs_1"),addEventListener('input',()=>{
         createUpdateImage(roundImgVal);
     });
-}
+};
 
 function createUpdateImage(roundImgVal){
 
