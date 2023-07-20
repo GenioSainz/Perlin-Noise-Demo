@@ -1,5 +1,4 @@
 
-
 // input vectors
 let vectorBL = new p5.Vector(0,0); // bottomLeft
 let vectorBR = new p5.Vector(0,0); // bottomRight
@@ -127,7 +126,7 @@ function setup() {
     /////////////////////////////////
     imgGradient = createImage(cellSize*nXY,cellSize*nXY);
     imgGradient.loadPixels();
-    var gridCellSize = 8;
+    var gridCellSize = 6;
     createUpdateImage(gridCellSize);
 };
 
@@ -137,6 +136,8 @@ function keyPressed() {
       saveGif('mySketch', 10);
     }
   }
+
+var thetaSpiral = 0;
 
 function draw(){
 
@@ -155,13 +156,35 @@ function draw(){
     plotXX   .position(txy+2*cellSize+gradientsModule,txy);
     plotYY   .position(txy+2*cellSize+gradientsModule,txy+ cellSize);
     
+
     //  (0,0) = (windowWidth/2 - 2*cellSize, windowHeight/2 -2*cellSize)
     /////////////////////////////////////////////
-    var x = mouseX - txy;
-    var y = mouseY - txy;
-   
+    // var x = mouseX - txy;
+    // var y = mouseY - txy;
+
+    //  x,y by noise
+    /////////////////////////////////////////////
+    
+    // var kNoise =  0.05;
+    // var x      = map( noise( 1000 + frameCount*kNoise),0,1,txy,txy+2*cellSize);
+    // var y      = map( noise( 2000 + frameCount*kNoise),0,1,txy,txy+2*cellSize);
+    
+    var thetaSpeed = 3;
+    var R          = cellSize;
+    var kTurns     = 3;
+
+    thetaSpiral+=thetaSpeed;
+    
+    if(thetaSpiral>kTurns*360){
+        thetaSpiral = 0;
+    }
+
+    var r = R - (R/kTurns)*(thetaSpiral/360);
+    var x = txy + cellSize + r*cos(thetaSpiral) - txy;
+    var y = txy + cellSize + r*sin(thetaSpiral) - txy;
+    
     // eje1 (x,y)=(0.1,2.2)
-    //////////////////////////
+    /////////////////////////
     var xGrid = x/cellSize;
     var yGrid = y/cellSize;
 
@@ -285,6 +308,7 @@ function draw(){
             XX.push( map( imgGradient.get(xPixel,i)[0], 0,255,-1,1 ));
             YY.push( map( imgGradient.get(i,yPixel)[0], 0,255,-1,1 ));
         };
+
         // XY: 0,1,2,3....nXY*cellSize
         // XX column vector
         // YY row vector

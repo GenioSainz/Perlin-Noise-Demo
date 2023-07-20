@@ -30,6 +30,7 @@ class PerlinNoise {
         this.indexTL = 0;
         this.indexTR = 0;
         
+        // values
         this.valueA = 0;
         this.valueB = 0;
         this.valueC = 0;
@@ -41,13 +42,14 @@ class PerlinNoise {
         this.valueCD = 0;
         this.valueZ = 0;
         
+        // creation permutation table
         this.P = [];
         this.createPermutation();
     };
 
     createPermutation(){
         
-        // Create
+        // Create table
         for(let i = 0; i < 256; i++) {
             this.P[i] = i;
         };
@@ -60,6 +62,19 @@ class PerlinNoise {
                            this.P[i] = this.P[j];
                            this.P[j] = temp;
         };
+        
+        // double permutation table to avoid overflows
+        //
+        // for(let i=0;i<512;i++){
+   
+        //     this.P[i] = this.P[i%256] ;
+        // };
+
+        for(let i=0;i<256;i++){
+   
+              this.P.push(this.P[i]);
+        };
+
     };
 
     eval(x,y){
@@ -67,23 +82,20 @@ class PerlinNoise {
         this.xn = x-Math.floor(x);
         this.yn = y-Math.floor(y);
         
+        this.X  = Math.floor(x) & 255;
+        this.Y  = Math.floor(y) & 255;
+        
+        this.indexTL = this.P[this.P[this.X] + this.Y+1]; this.indexTR = this.P[this.P[this.X+1] + this.Y+1];
+        this.indexBL = this.P[this.P[this.X] + this.Y  ]; this.indexBR = this.P[this.P[this.X+1] + this.Y  ];
+
         this.vectorBL.set( this.xn  , this.yn  );  
         this.vectorBR.set( this.xn-1, this.yn  );  
         this.vectorTL.set( this.xn  , this.yn-1); 
         this.vectorTR.set( this.xn-1, this.yn-1); 
-        
-        this.X  = Math.floor(x) & 255;
-        this.Y  = Math.floor(y) & 255;
-        
-        this.indexBL = this.P[ this.P[this.X]   + this.Y   ];
-        this.indexBR = this.P[ this.P[this.X+1] + this.Y   ];
-        this.indexTL = this.P[ this.P[this.X]   + this.Y+1 ];
-        this.indexTR = this.P[ this.P[this.X+1] + this.Y+1 ];
 
-
-        this.valueA = this.vectorBL.dot( this.getGradient(this.indexBL) );
+        this.valueA = this.vectorBL.dot( this.getGradient(this.indexBL) ); 
         this.valueB = this.vectorBR.dot( this.getGradient(this.indexBR) );
-        this.valueC = this.vectorTL.dot( this.getGradient(this.indexTL) );
+        this.valueC = this.vectorTL.dot( this.getGradient(this.indexTL) ); 
         this.valueD = this.vectorTR.dot( this.getGradient(this.indexTR) );
 
         this.U = this.smoothInterpolation(this.xn);
@@ -105,7 +117,7 @@ class PerlinNoise {
         for(let octave=0;octave<nOctaves;octave++){
 
             z+= A * this.eval(x*f,y*f);
-            A*= 0.5;
+            A/= 0.5;
             f*= 2;
         };
 

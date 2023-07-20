@@ -50,3 +50,6 @@ Zoom over 1D Noise.
 
 <img src="docs/imgs/img3.png"  width="100%">
 
+
+
+
