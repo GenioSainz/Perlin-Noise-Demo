@@ -73,7 +73,7 @@ var gui;
 function setup() {
 
     createCanvas(windowWidth,windowHeight);angleMode(DEGREES);
-    frameRate(10);
+    frameRate(20);
     pixelDensity(1);
     textSize(14);textAlign(CENTER,CENTER);textStyle(BOLD);
     cursor(CROSS);
@@ -809,7 +809,5 @@ function smoothInterpolation(tn){
  
     return 6*tn**5 - 15*tn**4 + 10*tn**3
 };
-
-
 
 

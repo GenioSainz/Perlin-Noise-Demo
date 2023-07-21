@@ -55,18 +55,10 @@ class PerlinNoise {
         };
         
         // Suffle table
-        for (var i = this.P.length - 1; i > 0; i--) {
-
-                var j = Math.floor( Math.random() * (i + 1));
-                var temp = this.P[i];
-                           this.P[i] = this.P[j];
-                           this.P[j] = temp;
-        };
+        this.P = PerlinNoise.suffleArray(this.P)
         
         // double permutation table to avoid overflows
-        //
         // for(let i=0;i<512;i++){
-   
         //     this.P[i] = this.P[i%256] ;
         // };
 
@@ -98,12 +90,12 @@ class PerlinNoise {
         this.valueC = this.vectorTL.dot( this.getGradient(this.indexTL) ); 
         this.valueD = this.vectorTR.dot( this.getGradient(this.indexTR) );
 
-        this.U = this.smoothInterpolation(this.xn);
-        this.V = this.smoothInterpolation(this.yn);
+        this.U =  PerlinNoise.smoothInterpolation(this.xn);
+        this.V =  PerlinNoise.smoothInterpolation(this.yn);
 
-        this.valueAB = this.lerpInterpolation(this.U,this.valueA,this.valueB);
-        this.valueCD = this.lerpInterpolation(this.U,this.valueC,this.valueD);
-        this.valueZ  = this.lerpInterpolation(this.V,this.valueAB,this.valueCD);
+        this.valueAB = PerlinNoise.lerpInterpolation(this.U,this.valueA,this.valueB);
+        this.valueCD = PerlinNoise.lerpInterpolation(this.U,this.valueC,this.valueD);
+        this.valueZ  = PerlinNoise.lerpInterpolation(this.V,this.valueAB,this.valueCD);
 
         return this.valueZ
 
@@ -143,14 +135,36 @@ class PerlinNoise {
 
     };
 
-    lerpInterpolation(tn,a,b){
+    static lerpInterpolation(tn,a,b){
          
         return (b-a)*tn + a;
     };
 
-    smoothInterpolation(tn){
+    static smoothInterpolation(tn){
      
         return 6*tn**5 - 15*tn**4 + 10*tn**3
     };
+        
+    static suffleArray(P){
+
+        // Fisher–Yates Shuffle Algorithm example
+        // suffleArray([0,1,2,3,4])
+        // i=4 randInt[0,4]=3  0,1,2,3,4 --> 0,1,2,4,3
+        // i=3 randInt[0,3]=2  0,1,2,4,3 --> 0,1,4,2,3
+        // i=2 randInt[0,2]=0  0,1,4,2,3 --> 4,1,0,2,3
+        // i=1 randInt[0,1]=1  4,1,0,2,3 --> 4,1,0,2,3
+
+        for (var i = P.length - 1; i > 0; i--) {
+
+                var j    = Math.floor( Math.random() * (i + 1) );
+                var temp = P[i];
+                           P[i] = P[j];
+                           P[j] = temp;
+                           // console.log(`i=${i} randInt[${0},${i}]=${j} `,P.toString());
+        };
+
+        return P
+    };
 
 };
+
