@@ -51,5 +51,11 @@ Zoom over 1D Noise.
 <img src="docs/imgs/img3.png"  width="100%">
 
 
+## NOISE INTERPOLATIONS
 
 
+<img src="docs/MatlabInterpolations/weightSurfaces.png"  width="100%">
+<img src="docs/MatlabInterpolations/perlinNoiseInterpolation1.png"  width="100%">
+<img src="docs/MatlabInterpolations/perlinNoiseInterpolation2.png"  width="100%">
+<img src="docs/MatlabInterpolations/perlinNoiseInterpolation0.png"  width="100%">
+<img src="docs/MatlabInterpolations/perlinNoiseInterpolation3.png"  width="100%">
