@@ -50,7 +50,7 @@ title('$S(x,1-y)$','Interpreter','latex',FontSize=16)
 view(-45,45)
 mesh(X,Y,ZBR)
 
-exportgraphics(gcf,'weightSurfaces.png','Resolution',300)
+exportgraphics(gcf,'imgs/weightSurfaces.png','Resolution',300)
 
 
 

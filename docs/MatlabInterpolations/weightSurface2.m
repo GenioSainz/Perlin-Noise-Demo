@@ -31,19 +31,19 @@ for i= 1:length(y)
     for j = 1:length(x)
 
     
-    TL=dot(vTL,[x(j)-0,y(i)-1]); TR=dot(vTR,[x(j)-1,y(i)-1]);
-    BL=dot(vBL,[x(j)-0,y(i)-0]); BR=dot(vBR,[x(j)-1,y(i)-0]);
-
-             ZBL(i,j) = s2d( 1-x(j),1-y(i) )*BL;
-             ZBR(i,j) = s2d( x(j)  ,1-y(i) )*BR;
-             ZTR(i,j) = s2d( x(j)  ,y(i)   )*TR;
-             ZTL(i,j) = s2d( 1-x(j),y(i)   )*TL;
-             Z(i,j)   = ZBL(i,j)+ZBR(i,j)+ZTR(i,j)+ZTL(i,j);
+        TL=dot(vTL,[x(j)-0,y(i)-1]); TR=dot(vTR,[x(j)-1,y(i)-1]);
+        BL=dot(vBL,[x(j)-0,y(i)-0]); BR=dot(vBR,[x(j)-1,y(i)-0]);
+    
+                 ZBL(i,j) = s2d( 1-x(j),1-y(i) )*BL;
+                 ZBR(i,j) = s2d( x(j)  ,1-y(i) )*BR;
+                 ZTR(i,j) = s2d( x(j)  ,y(i)   )*TR;
+                 ZTL(i,j) = s2d( 1-x(j),y(i)   )*TL;
+                 Z(i,j)   = ZBL(i,j)+ZBR(i,j)+ZTR(i,j)+ZTL(i,j);
  
     end
 end
 
-set(gcf,'position',[0 0 1500 1000]);set(gcf,'color','w');
+set(gcf,'position',[0 0 1500 1000]);
 ti = tiledlayout(2,3,TileSpacing = 'compact',Padding = 'compact');
 title(ti,{'$s=3t^2-2t^3 \rightarrow S(x,y)=s(x)s(y)$';'$noise2D(x,y)=S(1-x,y)TL+S(x,y)TR+S(1-x,1-y)BL+S(x,1-y)BR$';' '},'Interpreter','latex',FontSize=18)
 
@@ -88,6 +88,6 @@ view(-45,45)
 mesh(X,Y,Z)
 
 
-exportgraphics(gcf,'perlinNoiseInterpolation.png','Resolution',300)
+exportgraphics(gcf,'imgs/perlinNoiseInterpolation.png','Resolution',300)
 
 
